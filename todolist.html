@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <style>
+       
+        </style>
+        
+    </head>
+    <body>
+        <div class="container">
+       <button class="btn" onclick="adddata()">click to add data</button>
+       
+       <button  class="btn"  onclick="showdata()">click to showdata</button>
+        <table border="1" cellspacing="0">
+        <tbody id="tabledata">
+            
+        </tbody>
+    </table>
+
+       <button class="btn"  onclick="sortmarks()">click to showdata sortedmarks</button>
+       <ul id="item2"></ul>
+
+       <button class="btn"  onclick="passmarks()">passmarks of students</button>
+       <ul id="item3"></ul>
+
+       <button class="btn"  onclick="cse()">cse students</button>
+       <ul id="item4"></ul>
+
+       <button class="btn"  onclick="highmarks()">Highest marks</button>
+       <p id="hm"></p>
+
+       </div>
+
+    <script>
+        let student_data=[{ id: 1, name: "Amit", marks: 78, dept: "CSE" },
+  { id: 2, name: "Priya", marks: 92, dept: "ECE" },
+  { id: 3, name: "Rahul", marks: 45, dept: "MECH" },
+  { id: 4, name: "Sneha", marks: 66, dept: "CSE" },
+  { id: 5, name: "Kiran", marks: 88, dept: "ECE" }];
+        
+        function adddata(){
+            
+            var id=prompt("enter student_id:");
+            var name=prompt("enter student_name:");
+            var marks=parseInt(prompt("enter marks:"));
+            var dept=prompt("enter department");
+            student_data.push({
+            id: id,
+            name: name,
+            marks: marks,
+            dept: dept
+        });
+            // console.log(student_data);
+
+        }
+        function showdata(){
+            let tbody = document.getElementById("tabledata");
+             tbody.innerHTML = "";
+             for(i of student_data){
+            let row=document.createElement("tr");
+            row.innerHTML =  `
+            <td>${i.id}</td>
+            <td>${i.name}</td>
+            <td>${i.marks}</td>
+            <td>${i.dept}</td>
+              
+            `
+            tbody.appendChild(row);
+        }
+            
+        }
+        function sortmarks(){
+            let ulelement=document.getElementById("item2");
+            ulelement.innerHTML="";
+            let studentsortmarks=student_data.sort((a,b)=> b.marks-a.marks);
+            for(i of studentsortmarks ){
+                let li=document.createElement("li");
+                li.textContent =  `ID:${i.id}  Name:${i.name}  Marks:${i.marks} Department:${i.dept}`
+                ulelement.appendChild(li);
+
+            }
+
+        }
+
+        function passmarks(){
+            let ulelement=document.getElementById("item3");
+            ulelement.innerHTML="";
+            let passmark=student_data.filter(n=>n.marks>60);
+            for(i of passmark){
+                let li=document.createElement('li');
+            
+                li.textContent =  `ID:${i.id}  Name:${i.name}  Marks:${i.marks} Department:${i.dept}`
+                ulelement.appendChild(li);
+            }
+        }
+
+        function cse(){
+            let ulelement=document.getElementById("item4");
+            ulelement.innerHTML="";
+            let filcse=student_data.filter(n=>n.dept==="CSE");
+            for(i of filcse){
+                let li=document.createElement('li');
+            
+                li.textContent="ID: " + i.id + ", Name: " + i.name +", Marks: " + i.marks + ", Dept: " + i.dept;
+                ulelement.appendChild(li);
+            }
+        }
+
+        function highmarks(){
+            let hmarks=student_data.sort((a,b)=>b.marks-a.marks)[0];
+            var h=document.getElementById("hm").innerHTML=`Highest marks for ${hmarks.name} got ${hmarks.marks}marks`
+
+        }
+
+        
+
+    </script>
+
+    
+</body>
+</html>

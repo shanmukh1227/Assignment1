@@ -30,6 +30,9 @@
        <button class="btn"  onclick="highmarks()">Highest marks</button>
        <p id="hm"></p>
 
+       <button class="btn"  onclick="avg_data()">Average marks</button>
+       <p id="avgm"></p>
+
        </div>
 
     <script>
@@ -111,6 +114,18 @@
             let hmarks=student_data.sort((a,b)=>b.marks-a.marks)[0];
             var h=document.getElementById("hm").innerHTML=`Highest marks for ${hmarks.name} got ${hmarks.marks}marks`
 
+        }
+        var avg_marks=0;
+        
+        function avg_data(){
+            
+            
+            let sum=0;
+            for(i of student_data){
+                 sum=sum+i.marks;
+            }
+            avg_marks=sum/student_data.length;
+            let ulelement=document.getElementById("avgm").textContent=`Average marks of all students:${avg_marks}`;
         }
 
         

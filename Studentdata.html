@@ -3,20 +3,25 @@
     <head>
         <title></title>
         <style>
-       
+       .fail-row{
+        background-color: red;
+       }
         </style>
         
     </head>
     <body>
-        <div class="container">
-       <button class="btn" onclick="adddata()">click to add data</button>
+        
+            
+        
+        <button class="btn" onclick="adddata()">click to add data</button> 
+       
        
        <button  class="btn"  onclick="showdata()">click to showdata</button>
         <table border="1" cellspacing="0">
         <tbody id="tabledata">
             
         </tbody>
-    </table>
+        </table>
 
        <button class="btn"  onclick="sortmarks()">click to showdata sortedmarks</button>
        <ul id="item2"></ul>
@@ -24,7 +29,7 @@
        <button class="btn"  onclick="passmarks()">passmarks of students</button>
        <ul id="item3"></ul>
 
-       <button class="btn"  onclick="cse()">cse students</button>
+       <button class="btn"  onclick="CseStudents()" >cse students</button>
        <ul id="item4"></ul>
 
        <button class="btn"  onclick="highmarks()">Highest marks</button>
@@ -33,7 +38,21 @@
        <button class="btn"  onclick="avg_data()">Average marks</button>
        <p id="avgm"></p>
 
-       </div>
+       <button  class="btn"  onclick="deptwise()">showdata by deptwise</button>
+         <table border="1" cellspacing="0">
+           <tbody id="tabledata2">
+            
+           </tbody>
+         </table>
+
+       <button  class="btn"  onclick="failedStudents()">students failed</button>
+         <table border="1" cellspacing="0">
+           <tbody id="tabledata3">
+            
+           </tbody>
+         </table>
+
+       
 
     <script>
         let student_data=[{ id: 1, name: "Amit", marks: 78, dept: "CSE" },
@@ -77,7 +96,7 @@
             let ulelement=document.getElementById("item2");
             ulelement.innerHTML="";
             let studentsortmarks=student_data.sort((a,b)=> b.marks-a.marks);
-            for(i of studentsortmarks ){
+            for(let i of studentsortmarks ){
                 let li=document.createElement("li");
                 li.textContent =  `ID:${i.id}  Name:${i.name}  Marks:${i.marks} Department:${i.dept}`
                 ulelement.appendChild(li);
@@ -90,7 +109,7 @@
             let ulelement=document.getElementById("item3");
             ulelement.innerHTML="";
             let passmark=student_data.filter(n=>n.marks>60);
-            for(i of passmark){
+            for(let i of passmark){
                 let li=document.createElement('li');
             
                 li.textContent =  `ID:${i.id}  Name:${i.name}  Marks:${i.marks} Department:${i.dept}`
@@ -98,11 +117,12 @@
             }
         }
 
-        function cse(){
+        function CseStudents(){
+
             let ulelement=document.getElementById("item4");
             ulelement.innerHTML="";
             let filcse=student_data.filter(n=>n.dept==="CSE");
-            for(i of filcse){
+            for(let i of filcse){
                 let li=document.createElement('li');
             
                 li.textContent="ID: " + i.id + ", Name: " + i.name +", Marks: " + i.marks + ", Dept: " + i.dept;
@@ -126,6 +146,68 @@
             }
             avg_marks=sum/student_data.length;
             let ulelement=document.getElementById("avgm").textContent=`Average marks of all students:${avg_marks}`;
+        }
+
+        var cse=0;
+        var ece=0;
+        var mech=0;
+
+        function deptwise(){
+             cse=0;
+             ece=0;
+             mech=0;
+
+            let tbody = document.getElementById("tabledata2");
+             tbody.innerHTML = "";
+             for(let i of student_data){               
+                if(i.dept==="CSE"){
+                    cse=cse+1;
+                }  
+                else if(i.dept==="ECE"){
+                    ece++;
+
+                }
+                else if(i.dept==="MECH"){
+                    mech++
+                }
+             }
+             tbody.innerHTML=`
+             <tr>
+                <td>CSE</td>
+                <td>${cse}</td>
+            </tr>
+            <tr>
+                <td>ECE</td>
+                <td>${ece}</td>
+            </tr>
+            <tr>
+                <td>MECH</td>
+                <td>${mech}</td>
+            </tr>`
+            
+        }
+
+        function failedStudents(){
+            let tbody=document.getElementById("tabledata3");
+            tbody.innerHTML="";
+
+            for(let i of student_data){
+                let row=document.createElement("tr");
+                if(i.marks<60){
+                    row.classList.add("fail-row");
+                }
+                
+                    
+                    row.innerHTML=`
+                    <td>${i.id}</td>
+
+                    <td>${i.name}</td>
+                    <td>${i.marks}</td>
+                    <td>${i.dept}</td>
+                    `
+                
+                tbody.appendChild(row)
+            }
         }
 
         

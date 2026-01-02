@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Space Launch Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #loading {
+            color: blue;
+            display: none;
+        }
+        #error {
+            color: red;
+        }
+        .card {
+            border: 1px solid #000000;
+            padding: 15px;
+            margin-top: 15px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Space Launch Information Dashboard</h2>
+
+    <button onclick="loadLaunch()">Load Latest Launch</button>
+
+    <p id="loading">Loading latest launch...</p>
+    <p id="error"></p>
+
+    <div id="launchDetails" class="card"></div>
+
+<script>
+     function loadLaunch() {
+        const loading = document.getElementById("loading");
+        const error = document.getElementById("error");
+        const list = document.getElementById("launchDetails");
+
+        loading.style.display = "block";
+        list.innerHTML="";
+        error.innerText = "";
+
+                fetch("https://api.spacexdata.com/v4/launches/latest")
+                .then(function(response){
+                    if(!response.ok){
+                        throw new Error("Failed to fetch data");
+                    }
+                    return response.json();
+                })
+                .then(function(data){
+                    setTimeout(()=>{
+                        loading.style.display='none';
+                        list.innerText=`Mission name:${data.name}`
+                    
+                },2000)  
+                })
+
+                .catch(function(err){
+                    setTimeout(()=>{
+                        loading.style.display='none';
+                        error.innerText=err.message;
+                    })
+                    
+                })
+            
+    
+}
+</script>
+
+</body>
+</html>

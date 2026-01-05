@@ -1,0 +1,157 @@
+------------------------------------SQL QUERIES-----------------------------------------
+
+Display all employee records.
+->select * from employees;
+
+Display only employee ID, name, and department.
+-->select emp_id,empname,department from employees;
+
+Display employee name and salary for all employees.
+--> select empname,salary from employees;
+
+Display employees whose salary is greater than 40,000.
+-->select * from employees where salary>40000;
+
+
+Display employees whose salary is less than or equal to 35,000.
+-->select * from employees where salary<=35000;
+
+Display employees whose salary is exactly 45,000.
+-->select * from employees where salary=45000;
+
+Display employees who joined after 01-Jan-2022.
+-->select * from employees where joining_date > date '2022-01-01';
+
+Display employees who joined before 01-Jan-2021.
+-->select * from employees where joining_date < date '2022-01-01';
+
+Display employees whose salary is between 35,000 and 50,000.
+-->select * from employees where salary between 30000 and 45000;
+
+Display employees whose salary is not between 30,000 and 45,000.
+-->select * from employees where salary not between 30000 and 45000;
+
+Display employees whose joining date is between 01-Jan-2021 and 31-Dec-2022.
+-->select * from employees where joining_date between date '2021-01-01' and date '2022-12-31';
+
+Display employees working in IT or HR departments.
+-->select * from employees where department in ('IT','HR');
+
+Display employees working in Chennai, Bangalore, or Hyderabad.
+-->select * from employees where location in ('Chennai','Bangalore','Hyderabad');
+
+
+Display employees whose salary is IN (32000, 38000, 40000).
+-->select * from employees where salary in (32000, 38000, 40000);
+
+Display employees not working in Mumbai.
+-->select * from employees where location not in 'Mumbai';
+or
+-->select * FROM employees where location <> 'Mumbai';
+
+
+Display employees whose department is not in IT and HR.
+-->select * from employees where department not in ('IT','HR');
+
+Display employees whose designation is not in Developer and Tester.
+-->select * from employees where designation not in ('Developer','Tester');
+
+
+Display employees whose name starts with ‘A’.
+-->select empname from employees where empname like 'A%';
+
+
+Display employees whose salary is NULL.
+-->select empname from employees where salary is null;
+
+Display employees whose email is NULL.
+-->select empname from employees where email is null;
+
+Display employees whose salary is NOT NULL.
+-->select empname from employees where salary is not null;
+
+Display employees whose email is NOT NULL.
+-->-->select empname from employees where email is not null;
+
+Display employees whose name ends with ‘i’.
+-->select empname from employees where empname like '%i';
+
+Display employees whose name contains ‘vi’.
+-->select empname from employees where empname like '%vi%';
+
+Display employees whose email contains ‘@company.com’.
+-->select empname from employees where email like '%company.com%';
+
+Display employees whose designation ends with ‘Engineer’.
+-->select empname from employees where designation like '%Engineer';
+
+Display all employees ordered by salary ascending.
+-->select empname,salary from employees order by salary asc;
+
+
+Display employees ordered by department ASC and salary DESC.
+--> select empname,department,salary from employees order by department asc,salary desc;
+
+Display employees ordered by location ASC and employee name ASC.
+-->select empname,department,salary from employees order by location asc,empname asc;
+
+
+Display employees working in IT department AND salary > 45,000.
+-->select empname,department,salary from employees where department = 'IT' and salary>45000;
+
+Display employees working in HR OR Sales department.
+-->select empname,department,salary from employees where department in ('HR','Sales');
+or
+-->select empname,department,salary from employees where department='HR' or department='Sales';
+
+Update salary to 50,000 for employees whose salary is NULL.
+-->update employees set salary=50000 where salary is null;
+
+Increase salary by 5,000 for all IT employees.
+-->update employees set salary=salary+5000 where department ='IT';
+
+
+Display employees having the same name more than once.
+-->select empname,count(*) as count from employees group by empname;
+
+
+
+Display employees having the same salary.
+
+
+Display employees working in the same department and same location.
+-->select department,location,count(*) from employees group by department,location;
+
+
+Update location to Hyderabad for employees working in HR.
+-->update employees set location='Hyderabad' where department='HR';
+
+
+Display employees NOT working in IT department.
+-->select emp_id,empname from employees where department not in('IT');
+
+Display employees working in IT AND located in Chennai.
+-->select empname from employees where department='IT' and location='Chennai';
+
+
+Display employees ordered by salary DESC and joining date ASC.
+-->select empname ,salary,joining_date from employees order by salary desc,joining_date asc;
+
+
+
+Display all employees ordered by salary descending.
+-->select empname ,salary from employees order by salary desc;
+
+
+Display all employees ordered by joining date ascending.
+-->select empname ,joining_date from employees order by joining_date asc;
+
+
+Display all employees ordered by employee name alphabetically.
+-->select empname  from employees order by empname asc;
+
+
+
+
+
+
